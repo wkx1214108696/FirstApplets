@@ -1,0 +1,40 @@
+<!--pages/posts/posts.wxml-->
+<import src="post-item/post-item-template.wxml" />
+<view>
+  <!-- 轮播部分 -->
+  <swiper indicator-dots="true" autoplay="true">
+    <swiper-item>
+      <image src='/images/wx.png'></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='/images/vr.png'></image>
+    </swiper-item>
+    <swiper-item>
+      <image src='/images/iqiyi.png'></image>
+    </swiper-item>
+  </swiper>
+  <!-- 新闻部分 -->
+  <block wx:for="{{postKey}}" wx:key="{{index}}">
+    <!-- 测试 -->
+    <!-- <view class='post-container'>
+      <view class='post-author-date'>
+        <image src='{{item.avatar}}' class='post-author'></image>
+        <text class='post-date'>{{item.date}}</text>
+      </view>
+      <text class='post-title'>{{item.title}}</text>
+      <image class='post-image' src='{{item.imgSrc}}'></image>
+      <text class='post-content'>{{item.content}}</text>
+      <view class='post-like'>
+        <image class='post-like-image' src='/images/icon/chat.png'></image>
+        <text class='post-like-font'>{{item.collection}}</text>
+        <image class='post-like-image' src='/images/icon/view.png'></image>
+        <text class='post-like-font'>{{item.reading}}</text>
+      </view>
+    </view> -->
+
+    <!-- template模板 -->
+    <view catchtap='onPostTap' data-post-ide="{{item.postId}}" data-index="{{index}}">
+      <template is="postItem" data="{{...item}}"/>
+    </view>
+  </block>
+</view>
