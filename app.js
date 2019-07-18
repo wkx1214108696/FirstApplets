@@ -33,6 +33,8 @@ App({
     //记录音乐播放状态
     g_isPlayingMusic: false,
     //记录播放的哪个音乐
-    g_currentMusicPostId: null
+    g_currentMusicPostId: null,
+    //豆瓣
+    douBanBase: "http://t.yushu.im"
   }
 })

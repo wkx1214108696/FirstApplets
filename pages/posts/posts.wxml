@@ -2,16 +2,27 @@
 <import src="post-item/post-item-template.wxml" />
 <view>
   <!-- 轮播部分 -->
-  <swiper indicator-dots="true" autoplay="true">
+  <swiper catchtap='onSwiperTap' indicator-dots="true" autoplay="true">
+    <!-- 事件冒泡 -->
     <swiper-item>
-      <image src='/images/wx.png'></image>
+      <image src='/images/wx.png' data-post-ide="3"></image>
     </swiper-item>
     <swiper-item>
-      <image src='/images/vr.png'></image>
+      <image src='/images/vr.png' data-post-ide="4"></image>
     </swiper-item>
     <swiper-item>
-      <image src='/images/iqiyi.png'></image>
+      <image src='/images/iqiyi.png' data-post-ide="5"></image>
     </swiper-item>
+    <!-- 给每个添加事件 -->
+    <!-- <swiper-item>
+      <image catchtap='onPostTap' src='/images/wx.png' data-post-ide="3"></image>
+    </swiper-item>
+    <swiper-item>
+      <image catchtap='onPostTap' src='/images/vr.png' data-post-ide="4"></image>
+    </swiper-item>
+    <swiper-item>
+      <image catchtap='onPostTap' src='/images/iqiyi.png' data-post-ide="5"></image> 
+    </swiper-item>-->
   </swiper>
   <!-- 新闻部分 -->
   <block wx:for="{{postKey}}" wx:key="{{index}}">
@@ -34,7 +45,7 @@
 
     <!-- template模板 -->
     <view catchtap='onPostTap' data-post-ide="{{item.postId}}" data-index="{{index}}">
-      <template is="postItem" data="{{...item}}"/>
+      <template is="postItem" data="{{...item,...readsNum[index]}}"/>
     </view>
   </block>
 </view>

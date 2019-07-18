@@ -6,9 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    num: 0
   },
-
+  //新闻点击切换到详情页
   onPostTap: function(event) {
     // console.log(event)
     //获取到对应的index
@@ -17,6 +17,15 @@ Page({
     // console.log(index)
     wx.navigateTo({
       url: 'post-detail/post-detail?id=' + postId //把postId传给详情页面
+    })
+  },
+  //轮播点击切换到详情页，使用到了事件冒泡给父元素添加事件
+  // target当前点击的组件image currentTarget事件捕获的组件swiper,所以此时应使用target
+  onSwiperTap: function(event) {
+    // var postId = event.currentTarget.dataset.postIde;
+    var postId = event.target.dataset.postIde;
+    wx.navigateTo({
+      url: 'post-detail/post-detail?id=' + postId
     })
   },
 
@@ -61,8 +70,35 @@ Page({
     // this.setData(post_cpmtent) //外部无法访问到post_cpmtent
     // this.setData({ postKey: postKey})
     // this.setData({ postKey }) //ES6中的语法
+
+    this.onReadNum();
+    
   },
 
+  onReadNum: function() {
+    //读取缓存
+    var readsNum = wx.getStorageSync('readsNum');
+    //判断缓存是否存在 //因为是本地缓存未考虑到用户没有浏览该页面的情况
+    if (readsNum) {
+      this.setData({
+        readsNum
+      })
+    } else {
+      //不存在说明没有被浏览过
+      var readsNum = [
+        { num: 0 },
+        { num: 0 },
+        { num: 0 },
+        { num: 0 },
+        { num: 0 },
+        { num: 0 }
+      ]
+      this.setData({
+        readsNum
+      })
+      wx.setStorageSync('readsNum', readsNum);
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -74,7 +110,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    // console.log('show');
+    this.onReadNum();
   },
 
   /**

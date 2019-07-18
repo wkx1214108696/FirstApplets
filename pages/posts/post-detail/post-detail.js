@@ -37,6 +37,12 @@ Page({
     // })
     //同步
     // wx.setStorageSync('key', 'wangkaixuan')
+
+    //读取阅读量缓存
+    var readsNum = wx.getStorageSync('readsNum');
+    // console.log(readsNum,readsNum[postId])
+    readsNum[postId].num ++;
+    wx.setStorageSync('readsNum', readsNum);
     
     //读取缓存
     var postsCollected = wx.getStorageSync('postsCollected');
