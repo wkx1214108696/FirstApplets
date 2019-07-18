@@ -1,4 +1,5 @@
 var postsData = require('../../../data/posts-data.js') //导入本地数据
+var app = getApp(); // 获取到全局的应用实例
 Page({
 
   /**
@@ -17,6 +18,7 @@ Page({
    */
   onLoad: function(options) {
     var postId = options.id;
+    var globalData = app.globalData; //获取全局变量
     this.setData({
       currertPostId: postId
     });
@@ -62,14 +64,30 @@ Page({
         musicImg: '/images/music/music-stop.png',
         headMusic: that.data.music.coverImg
       })
+      //音乐播放时，改变全局g_isPlayingMusic的状态
+      globalData.g_isPlayingMusic = true;
+      //记录当前music的id
+      globalData.g_currentMusicPostId = postId;
     });
     wx.onBackgroundAudioPause(function () {
       that.data.isPlayingMusic = false;
       that.setData({
         musicImg: '/images/music/music-start.png',
         headMusic: that.data.headImgSrc
-      })
+      });
+      globalData.g_isPlayingMusic = false;
+      globalData.g_currentMusicPostId = null;
     });
+
+    //解决切换页面音乐播放图片的错误显示问题,使用全局变量g_isPlayingMusic（同一页面）
+    //解决切换页面音乐播放图片的错误显示问题,使用全局变量g_currentMusicPostId（不同页面）
+    if (globalData.g_isPlayingMusic && globalData.g_currentMusicPostId === postId) {
+      this.setData({
+        musicImg: '/images/music/music-stop.png',
+        headMusic: that.data.music.coverImg
+      })
+    }
+
   },
 
   //音乐播放
