@@ -1,8 +1,12 @@
 {
   "pages": [
-    "pages/welcome/welcome",
     "pages/posts/posts",
+    "pages/welcome/welcome",
+    
     "pages/posts/post-detail/post-detail"
+  ],
+  "requiredBackgroundModes": [
+    "audio"
   ],
   "window": {
     "navigationBarBackgroundColor": "#405f80"
