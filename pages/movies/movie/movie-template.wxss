@@ -4,7 +4,7 @@
 .movie-container {
   display: flex;
   flex-direction: column;
-  padding: 0 22rpx;
+  padding: 0 22rpx 10rpx;
 }
 
 .movie-img {
