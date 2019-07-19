@@ -1,0 +1,2 @@
+/* 引入模板wxss */
+@import "movie-list/movie-list-template.wxss";

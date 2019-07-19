@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    num: 0
+    
   },
   //新闻点击切换到详情页
   onPostTap: function(event) {

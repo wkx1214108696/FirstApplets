@@ -1,0 +1,17 @@
+<import src='../movie/movie-template.wxml' />
+<template name='movieList'>
+  <view class='movie-list-container'>
+    <view class='movie-head'>
+      <text class='movie-hot'>正在热映</text>
+      <view class='movie-more'>
+        <text>更多</text>
+        <image src='/images/icon/arrow-right.png'></image>
+      </view>
+    </view>
+    <view class='movies-container'>
+      <template is='movie' />
+      <template is='movie' />
+      <template is='movie' />
+    </view>
+  </view>
+</template>
