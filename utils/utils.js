@@ -17,6 +17,26 @@ function convertToStarsArray(stars) {
   }
   return array;
 }
+
+//获取数据
+function getMovieListData (url, callBack) {
+  wx.request({
+    url: url,
+    method: 'get',
+    data: {
+      count: 9
+    },
+    success: function (res) {
+      console.log(res)
+      callBack(res.data)
+    },
+    fail: function (error) {
+      console.log(error);
+    }
+  })
+}
+
 module.exports = {
-  convertToStarsArray
+  convertToStarsArray,
+  getMovieListData
 }

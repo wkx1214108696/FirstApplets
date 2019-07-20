@@ -40,11 +40,8 @@ Page({
     wx.request({
       url: url,
       method: 'get',
-      data: {
-        count: 3
-      },
       success: function (res) {
-        console.log(res)
+        // console.log(res)
         that.processData(res.data, key, totalTitle)
       }
     })
@@ -79,6 +76,16 @@ Page({
       movies: movies
     };
     this.setData(moviesData)
+  },
+
+  //点击更多
+  onMoreTap: function (event) {
+    //dataset会将所有的自定义属性中的大写字母转化成小写
+    var totalTitle = event.currentTarget.dataset.totaltitle;
+    // console.log(event.currentTarget.dataset,totalTitle)
+    wx.navigateTo({
+      url: 'more-movies/more-movies?totalTitle=' + totalTitle,
+    })
   },
 
   /**

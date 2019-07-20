@@ -1,0 +1,8 @@
+@import "../movie/movie-template.wxss";
+.movie-gridcontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 15rpx; 
+}
