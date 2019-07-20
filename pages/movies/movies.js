@@ -1,4 +1,7 @@
 // pages/movies/movies.js
+//引入公共方法
+var utils = require('../../utils/utils.js');
+
 var app = getApp();
 Page({
 
@@ -6,7 +9,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    //正在
+    inTheaters: {},
+    //即将
+    comingSoon: {},
+    //前250
+    top250: {},
   },
 
   /**
@@ -52,7 +60,7 @@ Page({
         title = title.substring(0, 6) + '...';
       }
       var temp = {
-        // stars: util.convertToStarsArray(subject.rating.stars),
+        stars: utils.convertToStarsArray(subject.rating.stars),
         title: title,
         average: subject.rating.average,
         coverageUrl: subject.images.large,
@@ -64,6 +72,8 @@ Page({
     //   movies
     // })
     var moviesData = {};
+    //这样写会让后续不同模块的传值不好写，所以再嵌套一层，然后使用扩展运算符之后显示的都同一的结果
+    //moviesData[key] = movies;
     moviesData[key] = {
       totalTitle: totalTitle,
       movies: movies
