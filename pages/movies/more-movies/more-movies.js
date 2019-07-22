@@ -9,7 +9,11 @@ Page({
    */
   data: {
     //获取的电影的集合
-    movies: []
+    movies: [],
+    //请求的url
+    requestUrl: '',
+    //总共的电影数
+    totalMovie: 0
   },
 
   /**
@@ -36,6 +40,9 @@ Page({
       default:
         dataUrl = app.globalData.douBanBase + "/v2/movie/top250"
     };
+    this.setData({
+      requestUrl: dataUrl
+    })
     getMovieListData(dataUrl, this.callBack)
   },
 
@@ -58,26 +65,23 @@ Page({
       }
       movies.push(temp)
     }
+    
+    //加上这句话是为了让新数据和老数据同时显示在页面上
+    movies = this.data.movies.concat(movies)
+    
     this.setData({
       movies
-    })
+    })；
+    this.data.totalMovie += 12;
   },
 
-  // //获取电影数据 //改为公共方法
-  // getMovieListData: function (url, key, totalTitle) {
-  //   var that = this;
-  //   wx.request({
-  //     url: url,
-  //     method: 'get',
-  //     success: function (res) {
-  //       // console.log(res)
-  //       that.processData(res.data, key, totalTitle)
-  //     },
-  //     fail: function (error) {
-  //       console.log(error);
-  //     }
-  //   })
-  // },
+  //上滑加载更多
+  onScrollLower: function (event) {
+    // console.log("加载更多");
+    var nextUrl = this.data.requestUrl + "?start=" +this.data.totalMovie;
+    utils.getMovieListData(nextUrl, this.callBack)
+
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

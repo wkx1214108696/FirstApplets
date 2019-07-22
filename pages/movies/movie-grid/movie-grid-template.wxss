@@ -1,8 +1,39 @@
 @import "../movie/movie-template.wxss";
-.movie-gridcontainer {
+
+/* .movie-gridcontainer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
   padding-top: 15rpx; 
 }
+
+.gridcontainer {
+  height: 1336rpx;
+} */
+
+/* 浮动的方法 */
+
+.single-view-container {
+  float: left;
+  margin-bottom: 40rpx;
+}
+
+.grid-container {
+  height: 1300rpx;
+  margin: 40rpx 0 40rpx 6rpx;
+}
+
+/* 弹性盒子 */
+
+/* .grid-container-e {
+  height: 1300rpx;
+}
+.grid-container {
+  height: 1300rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top: 15rpx; 
+} */

@@ -24,7 +24,7 @@ function getMovieListData (url, callBack) {
     url: url,
     method: 'get',
     data: {
-      count: 9
+      count: 12
     },
     success: function (res) {
       console.log(res)
