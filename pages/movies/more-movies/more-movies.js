@@ -13,7 +13,8 @@ Page({
     //请求的url
     requestUrl: '',
     //总共的电影数
-    totalMovie: 0
+    totalMovie: 0,
+    isPullDown: true
   },
 
   /**
@@ -21,8 +22,8 @@ Page({
    */
   onLoad: function (options) {
     var totalTitle = options.totalTitle;
-    console.log(totalTitle)
-    wx.showNavigationBarLoading();
+    // console.log(totalTitle)
+    
     //设置当前导航标题
     wx.setNavigationBarTitle({
       title: totalTitle
@@ -65,29 +66,58 @@ Page({
       }
       movies.push(temp)
     }
-    
-    //加上这句话是为了让新数据和老数据同时显示在页面上
-    movies = this.data.movies.concat(movies)
-    
+    if (!this.data.isPullDown) {
+      //加上这句话是为了让新数据和老数据同时显示在页面上
+      movies = this.data.movies.concat(movies)
+    }
+    //
+    if (movies.toString() == this.data.movies.toString()) {
+      wx.showToast({
+        title: '无更多内容',
+        icon: 'loading',
+        duration: 1000
+      });
+      wx.hideNavigationBarLoading();
+      return;
+    }
     this.setData({
       movies
-    })；
+    })
     this.data.totalMovie += 12;
+    wx.hideNavigationBarLoading();
+    wx.stopPullDownRefresh();
   },
 
   //上滑加载更多
   onScrollLower: function (event) {
-    // console.log("加载更多");
+    console.log("加载更多");
     var nextUrl = this.data.requestUrl + "?start=" +this.data.totalMovie;
-    utils.getMovieListData(nextUrl, this.callBack)
-
+    this.data.isPullDown = false;
+    utils.getMovieListData(nextUrl, this.callBack);
+    //显示加载loading
+    wx.showNavigationBarLoading();
+  },
+  //自带的下拉刷新函数
+  onPullDownRefresh: function (event) {
+    var requestUrl = this.data.requestUrl + "?star=0";
+    this.data.isPullDown = true;
+    utils.getMovieListData(requestUrl, this.callBack);
+    //显示加载loading
+    wx.showNavigationBarLoading();
   },
 
+  //点击跳转到详情
+  onMovieDetailTap: function (event) {
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: '../movie-detail/movie-detail?id=' + movieId
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    wx.hideNavigationBarLoading();
+    
   },
 
   /**
@@ -114,9 +144,7 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
-  },
+  
 
   /**
    * 页面上拉触底事件的处理函数

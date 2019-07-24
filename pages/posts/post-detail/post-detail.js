@@ -75,7 +75,18 @@ Page({
       //记录当前music的id
       globalData.g_currentMusicPostId = postId;
     });
+    //暂停
     wx.onBackgroundAudioPause(function () {
+      that.data.isPlayingMusic = false;
+      that.setData({
+        musicImg: '/images/music/music-start.png',
+        headMusic: that.data.headImgSrc
+      });
+      globalData.g_isPlayingMusic = false;
+      globalData.g_currentMusicPostId = null;
+    });
+    //修复音乐停止后图标未变化的bug
+    wx.onBackgroundAudioStop(function () {
       that.data.isPlayingMusic = false;
       that.setData({
         musicImg: '/images/music/music-start.png',

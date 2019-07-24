@@ -15,6 +15,8 @@ Page({
     comingSoon: {},
     //前250
     top250: {},
+    searchData: {},
+    containerShow: true
   },
 
   /**
@@ -88,6 +90,36 @@ Page({
     })
   },
 
+  //点解跳转到电影详情页
+  onMovieDetailTap: function (event) {
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: 'movie-detail/movie-detail?id=' + movieId
+    })
+  },
+
+  //搜索部分
+  onBindFocus: function (event) {
+    // console.log(1);
+    this.setData({
+      containerShow: false
+    })
+  },
+
+  onCancelImgTap: function (event) {
+    this.setData({
+      containerShow: true,
+      //当点击取消时，清空搜索数据
+      searchData: {} 
+    });
+  },
+
+  onBindConfirm: function (event) {
+    var text = event.detail.value;
+    var searchUrl = app.globalData.douBanBase + "/v2/movie/search?q=" + text;
+    this.getMovieListData(searchUrl, "searchData", "");
+  },
+  
   
 
   /**

@@ -23,11 +23,11 @@ function getMovieListData (url, callBack) {
   wx.request({
     url: url,
     method: 'get',
-    data: {
-      count: 12
-    },
+    // data: {
+    //   count: 12
+    // },
     success: function (res) {
-      console.log(res)
+      // console.log(res)
       callBack(res.data)
     },
     fail: function (error) {
@@ -36,7 +36,31 @@ function getMovieListData (url, callBack) {
   })
 }
 
+//将名字用“/”拼接
+function convertToCastString(casts) {
+  var castsjoin = "";
+  for (var idx in casts) {
+    castsjoin = castsjoin + casts[idx].name + " / ";
+  }
+  return castsjoin.substring(0, castsjoin.length - 2);
+}
+
+//将演员的图和名字放一起
+function convertToCastInfos(casts) {
+  var castsArray = []
+  for (var idx in casts) {
+    var cast = {
+      img: casts[idx].avatars ? casts[idx].avatars.large : "",
+      name: casts[idx].name
+    }
+    castsArray.push(cast);
+  }
+  return castsArray;
+}
+
 module.exports = {
   convertToStarsArray,
-  getMovieListData
+  getMovieListData,
+  convertToCastString,
+  convertToCastInfos
 }
