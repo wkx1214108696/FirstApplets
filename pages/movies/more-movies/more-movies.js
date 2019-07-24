@@ -90,7 +90,7 @@ Page({
 
   //上滑加载更多
   onScrollLower: function (event) {
-    console.log("加载更多");
+    // console.log("加载更多");
     var nextUrl = this.data.requestUrl + "?start=" +this.data.totalMovie;
     this.data.isPullDown = false;
     utils.getMovieListData(nextUrl, this.callBack);
